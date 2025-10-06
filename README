@@ -1,0 +1,100 @@
+# 🧠 Agentic RAG System (Built with LangGraph)
+
+## 📌 Overview  
+**Agentic RAG System** is a multi-agent framework designed using **LangGraph** that enhances information retrieval and reasoning when answering user questions based on research papers or web links.  
+
+The system automatically:
+- Retrieves and evaluates relevant content  
+- Rewrites questions when necessary  
+- Performs Google search fallback when retrieval fails  
+- Generates refined answers  
+- Summarizes conversation states to optimize token usage and memory  
+
+This architecture allows dynamic decision-making between multiple agents for better accuracy, coherence, and context efficiency.
+
+---
+
+## ⚙️ Features  
+✅ **Multi-Agent Workflow** – Each agent has a specific role (retrieval, grading, rewriting, generation, summarization).  
+✅ **Hybrid Retrieval (FAISS + BM25)** – Combines semantic and keyword-based search for better recall.  
+✅ **Self-Improving Question Handling** – Automatically rewrites the user’s query up to 3 times to find relevant information.  
+✅ **Google Search Integration** – Falls back to Google Search for out-of-domain or missing answers.  
+✅ **Summarization Agent** – Keeps memory concise by summarizing conversation history.  
+✅ **Memory-Optimized Graph** – Uses LangGraph with memory checkpointing to reduce redundant tokens.
+
+---
+
+## 🧩 Architecture  
+The system consists of several connected agents:
+
+1. **Agent** – Main entry point that decides whether to use retrieval or stop.  
+2. **Retriever** – Uses a hybrid retriever (FAISS + BM25) to fetch relevant text chunks.  
+3. **Grader** – Evaluates whether retrieved documents are relevant.  
+4. **Rewriter** – Reformulates the question if relevance is low (up to 3 retries).  
+5. **Google Search Agent** – Queries external sources if rewriting fails.  
+6. **Generator** – Generates the final answer with coherent formatting.  
+7. **Summarizer** – Compresses conversation memory to maintain efficiency.
+
+---
+
+## 🧠 Workflow Logic
+1. User sends a **paper link** or **question**.  
+2. The **Agent** decides whether to **retrieve** information or finish.  
+3. The **Grader** checks relevance:  
+   - If *no*, the system triggers the **Rewrite Agent**.  
+   - After 3 failed rewrites → goes to **Google Search**.  
+4. If *yes*, the **Generator Agent** produces a structured answer.  
+5. The **Summarizer** reduces memory load for long sessions.  
+
+---
+
+## 🧱 Tech Stack  
+- **LangGraph**  
+- **LangChain**  
+- **OpenAI GPT-4o-mini**  
+- **FAISS + BM25 Hybrid Retriever**  
+- **Google Serper API**  
+- **Python**  
+
+---
+
+## 🚀 Setup & Run
+```bash
+# Install dependencies
+!pip install -qU langchain-core langchain-openai langchain_huggingface langchain-community langsmith
+!pip install -qU faiss-cpu langgraph rank_bm25
+
+# Run the notebook / script
+python agentic_rag_system.py
+```
+
+Make sure to set your environment variables:
+```bash
+export GITHUB_TOKEN="your_openai_token"
+export SERPER_API_KEY="your_google_search_api_key"
+```
+
+---
+
+## 📊 Graph Visualization  
+Below is the high-level workflow graph for the system:
+
+```
+start → agent → retrieve → grader
+      ↘ rewrite ↘ search_google ↘ generate → summarize → end
+```
+
+*(You can visualize the graph using `graph.get_graph().draw()` in LangGraph.)*
+
+---
+
+## 🧩 Future Improvements  
+- Add automatic document summarization per source  
+- Introduce ranking for multiple retrieved answers  
+- Integrate UI with Gradio or Streamlit for public interaction  
+
+---
+
+## 👨‍💻 Author  
+Developed by **Mohamed Ahmed Ibrahim**  
+Data Science & AI Enthusiast | Building intelligent agentic workflows for real-world use

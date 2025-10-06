@@ -1,0 +1,11 @@
+langchain-core
+langchain-community
+langchain-openai
+langchain-huggingface
+langgraph
+faiss-cpu
+rank-bm25
+gradio
+flask
+sentence-transformers
+beautifulsoup4
