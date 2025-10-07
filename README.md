@@ -1,4 +1,5 @@
 # 🧠 Agentic RAG System (Built with LangGraph)
+![Agentic RAG System](images/Screenshot%202025-10-06%20155550.png)
 
 ## 📌 Overview  
 **Agentic RAG System** is a multi-agent framework designed using **LangGraph** that enhances information retrieval and reasoning when answering user questions based on research papers or web links.  
